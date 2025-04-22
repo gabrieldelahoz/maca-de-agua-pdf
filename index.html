@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Marca de Agua para PDF</title>
+  <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>Marca de Agua para PDF</h1>
+    <div class="subtitle">Hecho con ❤ por Mercadeo. (para que dejes de joder) 😉</div>
+    <div class="form-group">
+      <label for="upload">Selecciona un PDF</label>
+      <input type="file" id="upload" accept="application/pdf" />
+    </div>
+    <div class="form-group">
+      <label for="text">Texto de la marca de agua</label>
+      <input type="text" id="text" value="Confidencial" />
+    </div>
+    <div class="form-group">
+      <label for="color">Color</label>
+      <input type="color" id="color" value="#000000" />
+    </div>
+    <div class="form-group">
+      <label for="size">Tamaño del texto</label>
+      <div style="display: flex; align-items: center; gap: 4px;">
+          <input type="range" id="size" min="12" max="30" value="16" />
+          <span id="size-value">16px</span>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="rotation">Rotación (grados)</label>
+      <div style="display: flex; align-items: center; gap: 4px;">
+          <input type="range" id="rotation" min="-180" max="180" value="30" />
+          <span id="rotation-value">30°</span>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="opacity">Opacidad (%)</label>
+      <div style="display: flex; align-items: center; gap: 4px;">
+          <input type="range" id="opacity" min="10" max="100" value="20" />
+          <span id="opacity-value">20%</span>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="spacingX">Espaciado horizontal (px)</label>
+      <div style="display: flex; align-items: center; gap: 4px;">
+          <input type="range" id="spacingX" min="100" max="500" value="150" />
+          <span id="spacingX-value">150px</span>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="spacingY">Espaciado vertical (px)</label>
+      <div style="display: flex; align-items: center; gap: 4px;">
+          <input type="range" id="spacingY" min="100" max="500" value="150" />
+          <span id="spacingY-value">150px</span>
+      </div>
+    </div>
+    <div class="buttons">
+        <button id="preview">Vista previa</button>
+        <button id="download">Descargar PDF</button>
+    </div>
+  </div>
+
+  <iframe id="pdf-preview"></iframe>
+
+  <script src="./app.js"></script>
+</body>
+</html>
