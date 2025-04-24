@@ -1,16 +1,25 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Marca de Agua para PDF</title>
-  <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
+
   <link rel="stylesheet" href="./styles.css" />
+
+  <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/pdfjs-dist@5.1.91/build/pdf.mjs"></script>
+  <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.1/build/qrcode.min.js"></script>
 </head>
+
 <body>
   <div class="container">
     <h1>Marca de Agua para PDF</h1>
-    <div class="subtitle">Hecho con ❤ por Mercadeo. (para que dejes de joder) 😉</div>
+    <div class="subtitle" id="open-qr-modal">
+      Hecho con ❤ por Mercadeo. Apoya a la causa dando click aqui
+    </div>
+
     <div class="form-group">
       <label for="upload">Selecciona un PDF</label>
       <input type="file" id="upload" accept="application/pdf" />
@@ -26,46 +35,89 @@
     <div class="form-group">
       <label for="size">Tamaño del texto</label>
       <div style="display: flex; align-items: center; gap: 4px;">
-          <input type="range" id="size" min="12" max="30" value="16" />
-          <span id="size-value">16px</span>
+        <input type="range" id="size" min="12" max="30" value="16" />
+        <span id="size-value">16px</span>
       </div>
     </div>
     <div class="form-group">
       <label for="rotation">Rotación (grados)</label>
       <div style="display: flex; align-items: center; gap: 4px;">
-          <input type="range" id="rotation" min="-180" max="180" value="30" />
-          <span id="rotation-value">30°</span>
+        <input type="range" id="rotation" min="-180" max="180" value="30" />
+        <span id="rotation-value">30°</span>
       </div>
     </div>
     <div class="form-group">
       <label for="opacity">Opacidad (%)</label>
       <div style="display: flex; align-items: center; gap: 4px;">
-          <input type="range" id="opacity" min="10" max="100" value="20" />
-          <span id="opacity-value">20%</span>
+        <input type="range" id="opacity" min="10" max="100" value="20" />
+        <span id="opacity-value">20%</span>
       </div>
     </div>
     <div class="form-group">
       <label for="spacingX">Espaciado horizontal (px)</label>
       <div style="display: flex; align-items: center; gap: 4px;">
-          <input type="range" id="spacingX" min="100" max="500" value="150" />
-          <span id="spacingX-value">150px</span>
+        <input type="range" id="spacingX" min="100" max="500" value="150" />
+        <span id="spacingX-value">150px</span>
       </div>
     </div>
     <div class="form-group">
       <label for="spacingY">Espaciado vertical (px)</label>
       <div style="display: flex; align-items: center; gap: 4px;">
-          <input type="range" id="spacingY" min="100" max="500" value="150" />
-          <span id="spacingY-value">150px</span>
+        <input type="range" id="spacingY" min="100" max="500" value="150" />
+        <span id="spacingY-value">150px</span>
       </div>
     </div>
     <div class="buttons">
-        <button id="preview">Vista previa</button>
-        <button id="download">Descargar PDF</button>
+      <!-- <button id="preview">Vista previa</button> -->
+      <button id="download">Descargar PDF</button>
     </div>
   </div>
 
-  <iframe id="pdf-preview"></iframe>
+  <div class="pdf-container">
+    <div class="pdf-controls">
+      <button id="prev">Anterior</button>
+      <div class="page-info">
+        Página: <span id="page_num">1</span> / <span id="page_count">1</span>
+      </div>
+      <button id="next">Siguiente</button>
+    </div>
+    <div class="canvas-container">
+      <canvas id="pdf-canvas"></canvas>
+    </div>
+  </div>
 
-  <script src="./app.js"></script>
+  <!-- modal -->
+  <div class="modal" id="qr-modal">
+    <div class="modal-content">
+      <button class="close-button" id="close-qr-modal">&times;</button>
+      <h3 class="modal-title">Escanea este código QR para donar</h3>
+      <div class="qr-container">
+        <canvas id="qr-code"></canvas>
+      </div>
+      <p class="qr-info">
+        Escanea este QR desde la aplicación de Nequi o Bancolombia y aporta a la causa. <br />
+        <strong>¡Gracias por tu apoyo!</strong>
+      </p>
+    </div>
+  </div>
+
+  <!-- modal -->
+  <div class="modal" id="congratulations-modal">
+    <div class="modal-content">
+      <button class="close-button" id="close-congratulations-modal">&times;</button>
+      <h3 class="modal-title">Felicidades!</h3>
+      <div class="qr-container">
+        <img src="./imgs/va.jpg" style="width: 100%; aspect-ratio: 1/1; object-fit: cover;" ">
+      </div>
+      <p class=" qr-info">
+        Haz descargado el PDF con la marca de agua. <br />
+        <strong>¡Gracias por usar nuestra humilde aplicación!</strong>
+        </p>
+      </div>
+    </div>
+
+    <script type="module" src="./app.js"></script>
+    <script src="./donation.js"></script>
 </body>
+
 </html>
